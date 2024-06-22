@@ -17,7 +17,7 @@ const port = 3000;
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
       cb(null, path.join(__dirname, 'public/uploads')); // Save to 'public/uploads' directory
-      console.log(path.join(__dirname, 'public/uploads'));
+      console.log(`Path: ${path.join(__dirname, 'public/uploads')}`);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname); // Use the original file name
@@ -74,8 +74,8 @@ app.get("/", (req, res) => {
 
 app.post('/submit', upload.single('post-image'), (req, res) => {
 
-  // console.log('Form data:', req.body); // Log form data
-  // console.log('File data:', req.file); // Log file data
+  console.log('Form data:', req.body); // Log form data
+  console.log('File data:', req.file); // Log file data
 
   const { 'post-title': postTitle, 'post-author': postAuthor, 'post-content': postContent } = req.body;
   const postImage = req.file ? "uploads/" + req.file.filename : null;
@@ -153,7 +153,7 @@ app.get("/edit", (req, res) => {
 
 
 // Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use('/public/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
