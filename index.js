@@ -151,12 +151,6 @@ app.get("/edit", (req, res) => {
   res.render("edit.ejs", { item });
 });
 
-app.get("/delete", (req, res) => {
-  deleteImage();
-  res.render("delete.ejs");
-});
-
-
 
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
