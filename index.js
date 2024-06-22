@@ -5,7 +5,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { formatDateTime, getItem, deletePost, checkAndUpdateChanges } from "./public/functions/functions.js";
 import { Post } from './public/classes/post.js';
-import methodOverride from 'method-override';
 
 // Set up directory paths
 const __filename = fileURLToPath(import.meta.url);
@@ -18,6 +17,7 @@ const port = 3000;
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
       cb(null, path.join(__dirname, 'public/uploads')); // Save to 'public/uploads' directory
+      console.log(path.join(__dirname, 'public/uploads'));
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname); // Use the original file name
