@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Post } from '../classes/post.js';
+import fs from 'fs';
 
 export function formatDateTime() {
     // Get the current date and time
@@ -37,6 +38,7 @@ export function getItem(items, itemId) {
 export function deletePost(items, itemId) {
   for(let i = 0; i<items.length; i++){
     if (items[i].id === itemId){
+      deleteImageFromFolder(`public/${items[i].image}`);
       items = items.filter(item => item.id !== itemId);
       console.log(`Deleted item: ${itemId}`);
       return items;
@@ -48,6 +50,15 @@ export function deletePost(items, itemId) {
   }
 }
 
+export function deleteImageFromFolder(filePath){
+  fs.unlink(filePath, (err) => {
+    if (err) {
+        console.error(`Error deleting image: ${err}`);
+        return;
+    }
+    console.log(`Image ${filePath} deleted successfully`);
+});
+}
 
 
 export function checkAndUpdateChanges(items, itemId, postTitleNew, postAuthorNew, postContentNew, postImageNew) {

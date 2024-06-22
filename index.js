@@ -152,6 +152,7 @@ app.get("/edit", (req, res) => {
 });
 
 app.get("/delete", (req, res) => {
+  deleteImage();
   res.render("delete.ejs");
 });
 
@@ -161,5 +162,5 @@ app.get("/delete", (req, res) => {
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port}, URL: http://localhost:${port}/`);
+  console.log(`Listening on port ${port}`);
 });
